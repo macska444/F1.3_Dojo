@@ -4,13 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>dojoapp2</groupId>
-  <artifactId>dojoapp2</artifactId>
+  <groupId>hu.idom</groupId>
+  <artifactId>poker</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>dojoapp2</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>poker</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
