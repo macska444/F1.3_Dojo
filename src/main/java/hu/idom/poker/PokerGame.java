@@ -5,39 +5,43 @@ import hu.idom.poker.exception.*;
 
 public class PokerGame {
 
-    private final static int NUMBER_OF_CARDS_IN_HAND = 5;
+    private static final int NUMBER_OF_CARDS_IN_HAND = 5;
+    private static final int HIGHEST_RANK_OF_CARDS = 13;
+    private static final int LOWEST_RANK_OF_CARDS = 1;
 
-    public void evaluateHand(List hand) {
+    public void evaluateHand(List<Card> hand) {
         validateHand(hand);
     }
 
-    private void validateHand(List hand) {
+    private void validateHand(List<Card> hand) {
         validateHandIsNull(hand);
         validateHandSize(hand);
         validateCards(hand);
     }
 
-    private void validateCards(List hand) {
+    private void validateCards(List<Card> hand) {
         for (int i=0;i<hand.size();i++) {
-            validateCard((String)hand.get(i));
+            validateCard(hand.get(i));
         }
     }
 
-    private void validateCard(String card) {
-        if (card == null ) {
+    private void validateCard(Card card) {
+        if (card == null || card.rank == null || card.suit == null ) {
             throw new CardIsNullException();
-        } else if (card.equals("")) {
-            throw new CardIsEmptyException();
-        }
+        } else if (card.rank > HIGHEST_RANK_OF_CARDS || card.rank < LOWEST_RANK_OF_CARDS ) {
+            throw new CardIsInvalidException();
+        } else if (card.suit.equals("")) {
+            throw new CardSuitIsInvalidException();
+        }   
     }
 
-    private void validateHandIsNull(List hand){
+    private void validateHandIsNull(List<Card> hand){
         if (hand == null){
             throw new HandIsNullException();
         }
     }
 
-    private void validateHandSize(List hand){
+    private void validateHandSize(List<Card> hand){
         if(hand.isEmpty()) {
             throw new HandIsEmptyException();
         }else if(hand.size() < NUMBER_OF_CARDS_IN_HAND){
