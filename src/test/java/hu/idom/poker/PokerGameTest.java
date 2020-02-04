@@ -1,73 +1,93 @@
 package hu.idom.poker;
 
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import hu.idom.poker.exception.*;
 import org.junit.Ignore;
 
-public class PokerGameTest
-{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import hu.idom.poker.exception.*;
+
+public class PokerGameTest {
+
     private PokerGame pokerGame;
-    public Card validCard;
-    
+    public List<Card> handWith4ValidCards;
+
     @Before
-    public void setup(){
+    public void setup() {
         pokerGame = new PokerGame();
-        validCard = new Card("Heart",4);
+        Card validCard2 = new Card(Suit.HEART, 4);
+        Card validCard3 = new Card(Suit.HEART, 6);
+        Card validCard4 = new Card(Suit.HEART, 8);
+        Card validCard5 = new Card(Suit.HEART, 10);
+        handWith4ValidCards = Arrays.asList(validCard2, validCard3, validCard4, validCard5);
     }
 
     @Test(expected = HandIsNullException.class)
-    public void pokerHandIsNullTest(){
+    public void pokerHandIsNullTest() {
         pokerGame.evaluateHand(null);
     }
 
     @Test(expected = HandIsEmptyException.class)
-    public void pokerHandIsEmptyTest(){
+    public void pokerHandIsEmptyTest() {
         pokerGame.evaluateHand(Arrays.asList());
     }
 
     @Test(expected = HandHasLessThan5CardsException.class)
-    public void pokerHandHasLessThan5CardsTest(){
-        pokerGame.evaluateHand(Arrays.asList(validCard, validCard, validCard, validCard));
+    public void pokerHandHasLessThan5CardsTest() {
+        pokerGame.evaluateHand(handWith4ValidCards);
     }
 
     @Test(expected = HandHasMoreThan5CardsException.class)
-    public void pokerHandHasMoreThan5CardsTest(){
-       pokerGame.evaluateHand(Arrays.asList(validCard, validCard, validCard, validCard, validCard, validCard));
+    public void pokerHandHasMoreThan5CardsTest() {
+        List<Card> actualHand = new ArrayList<>();
+        actualHand.addAll(handWith4ValidCards);
+
+        Card firstExtraCard = new Card(Suit.HEART, 3);
+        Card secondExtraCard = new Card(Suit.HEART, 5);
+        actualHand.add(firstExtraCard);
+        actualHand.add(secondExtraCard);
+
+        pokerGame.evaluateHand(actualHand);
     }
 
     @Test(expected = CardIsNullException.class)
     public void pokerHandWithNullCardTest() {
-        pokerGame.evaluateHand(Arrays.asList(null, validCard, validCard, validCard, validCard));
+        addExtraCardIntoTheHandAndEvaulateHand(null);
     }
-    
+
     @Test(expected = CardIsNullException.class)
     public void cardRankIsNullTest() {
-       pokerGame.evaluateHand(Arrays.asList(new Card("Heart",null), validCard, validCard, validCard, validCard));
+        addExtraCardIntoTheHandAndEvaulateHand(new Card(Suit.HEART, null));
     }
-    
+
     @Test(expected = CardIsInvalidException.class)
     public void pokerHandHasHigherThen13RankOfCardTest() {
-       pokerGame.evaluateHand(Arrays.asList(new Card("Heart",14), validCard, validCard, validCard, validCard));
+        addExtraCardIntoTheHandAndEvaulateHand(new Card(Suit.HEART, 14));
     }
 
     @Test(expected = CardIsInvalidException.class)
     public void pokerHandHasLessThen1RankOfCardTest() {
-       pokerGame.evaluateHand(Arrays.asList(new Card("Heart",0), validCard, validCard, validCard, validCard));
+        addExtraCardIntoTheHandAndEvaulateHand(new Card(Suit.HEART, 0));
     }
-        
+
     @Test(expected = CardIsNullException.class)
     public void cardSuitIsNullTest() {
-       pokerGame.evaluateHand(Arrays.asList(new Card(null,5), validCard, validCard, validCard, validCard));
+        addExtraCardIntoTheHandAndEvaulateHand(new Card(null, 5));
     }
-    
-    @Test(expected = CardSuitIsInvalidException.class)
-    public void pokerHandHasCardWithInvalidSuitTest() {
-       pokerGame.evaluateHand(Arrays.asList(new Card("",5), validCard, validCard, validCard, validCard));
+
+    @Test(expected = HandHasMoreSameCardsException.class)
+    public void handHas2SameCard() {
+        //addExtraCardIntoTheHandAndEvaulateHand(handWith4ValidCards.get(0));
+        addExtraCardIntoTheHandAndEvaulateHand(new Card(Suit.HEART, 4));
     }
-    
-   
+
+    public void addExtraCardIntoTheHandAndEvaulateHand(Card card) {
+        List<Card> list = new ArrayList<>(handWith4ValidCards);
+        list.add(card);
+        pokerGame.evaluateHand(list);
+    }
+
 }
