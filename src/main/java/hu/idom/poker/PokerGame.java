@@ -1,64 +1,46 @@
 package hu.idom.poker;
 
 import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
-
-import hu.idom.poker.exception.*;
+import java.util.Collections;
 
 public class PokerGame {
 
-    private static final int NUMBER_OF_CARDS_IN_HAND = 5;
-    private static final int HIGHEST_RANK_OF_CARDS = 13;
-    private static final int LOWEST_RANK_OF_CARDS = 1;
+    private List<Card> hand;
 
-    public void evaluateHand(List<Card> hand) {
-        validateHand(hand);
+    public PokerHandScore evaluateHand(List<Card> hand) {
+        PokerHandValidator phv = new PokerHandValidator();
+        phv.validateHand(hand);
+        this.hand = hand;
+        return calculateHandScore();
     }
 
-    private void validateHand(List<Card> hand) {
-        validateHandIsNull(hand);
-        validateHandSize(hand);
-        validateCards(hand);
-        validateHandHasMoreSameCards(hand);
-    }
-
-    private void validateCards(List<Card> hand) {
-        for (int i = 0; i < hand.size(); i++) {
-            validateCard(hand.get(i));
+    private PokerHandScore calculateHandScore() {
+        sortHand();
+        if (isFlush() && isStraight()) {
+            return PokerHandScore.STRAIGHTFLUSH;
         }
+        if (isFlush()) {
+            return PokerHandScore.FLUSH;
+        }
+        return null;
     }
 
-    private void validateCard(Card card) {
-        if (card == null || card.rank == null || card.suit == null) {
-            throw new CardIsNullException();
-        } else if (card.rank > HIGHEST_RANK_OF_CARDS || card.rank < LOWEST_RANK_OF_CARDS) {
-            throw new CardIsInvalidException();
-        } else if (card.suit.equals("")) {
-            throw new CardSuitIsInvalidException();
-        }
+    private void sortHand() {
+        Collections.sort(hand);
     }
 
-    private void validateHandIsNull(List<Card> hand) {
-        if (hand == null) {
-            throw new HandIsNullException();
-        }
+    private boolean isStraight() {
+        return hand.get(0).rank + 4 == hand.get(4).rank;
     }
 
-    private void validateHandSize(List<Card> hand) {
-        if (hand.isEmpty()) {
-            throw new HandIsEmptyException();
-        } else if (hand.size() < NUMBER_OF_CARDS_IN_HAND) {
-            throw new HandHasLessThan5CardsException();
-        } else if (hand.size() > NUMBER_OF_CARDS_IN_HAND) {
-            throw new HandHasMoreThan5CardsException();
+    private boolean isFlush() {
+        Suit suitOfFirstCard = hand.get(0).suit;
+        boolean allSameSuit = true;
+        for (Card card : hand) {
+            if (card.suit != suitOfFirstCard) {
+                allSameSuit = false;
+            }
         }
-    }
-
-    private void validateHandHasMoreSameCards(List<Card> hand) throws HandHasMoreSameCardsException {
-        Set<Card> handSet = new HashSet<>(hand);
-        if (handSet.size() < NUMBER_OF_CARDS_IN_HAND) {
-            throw new HandHasMoreSameCardsException();
-        }
+        return allSameSuit;
     }
 }

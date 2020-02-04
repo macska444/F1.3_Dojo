@@ -2,14 +2,19 @@ package hu.idom.poker;
 
 import java.util.Objects;
 
-public class Card {
-    
+public class Card implements Comparable<Card> {
+
     public Suit suit;
     public Integer rank;
 
     public Card(Suit suit, Integer rank) {
         this.suit = suit;
         this.rank = rank;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return this.rank.compareTo(o.rank);
     }
 
     @Override
@@ -23,7 +28,7 @@ public class Card {
     @Override
     public boolean equals(Object objectCard) {
         return isCardObject(objectCard) && equalsTwoCard(this, (Card) objectCard);
-    } 
+    }
 
     private static boolean isCardObject(Object objectCard) {
         return objectCard != null && Card.class == objectCard.getClass();
@@ -31,5 +36,5 @@ public class Card {
 
     private boolean equalsTwoCard(Card thisCard, Card otherCard) {
         return thisCard.suit == otherCard.suit && thisCard.rank == otherCard.rank;
-    } 
+    }
 }

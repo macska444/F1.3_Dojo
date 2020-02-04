@@ -2,15 +2,15 @@ package hu.idom.poker;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import hu.idom.poker.exception.*;
+import static org.junit.Assert.assertEquals;
 
-public class PokerGameTest {
+public class PokerGameValidationTest {
 
     private PokerGame pokerGame;
     public List<Card> handWith4ValidCards;
@@ -80,7 +80,6 @@ public class PokerGameTest {
 
     @Test(expected = HandHasMoreSameCardsException.class)
     public void handHas2SameCard() {
-        //addExtraCardIntoTheHandAndEvaulateHand(handWith4ValidCards.get(0));
         addExtraCardIntoTheHandAndEvaulateHand(new Card(Suit.HEART, 4));
     }
 
@@ -89,5 +88,4 @@ public class PokerGameTest {
         list.add(card);
         pokerGame.evaluateHand(list);
     }
-
 }
