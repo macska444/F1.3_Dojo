@@ -105,4 +105,19 @@ public class PokerGameEvaluationTest {
         );
         assertEquals(PokerHandScore.ROYALFLUSH, actualHandResult);
     }
+
+    @Test
+    public void onePairTest(){
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 10),
+                        new Card(Suit.DIAMOND, 10),
+                        new Card(Suit.HEART, 8),
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.HEART, 4)
+                )
+        );
+        assertEquals(PokerHandScore.ONEPAIR, actualHandResult);
+    }
 }

@@ -32,6 +32,9 @@ public class PokerGame {
         if (isStraight()) {
             return PokerHandScore.STRAIGHT;
         }
+        if (isOnePair()) {
+            return PokerHandScore.ONEPAIR;
+        }
         return null;
     }
 
@@ -71,5 +74,15 @@ public class PokerGame {
         return hand.get(0).rank == ACE
                 && hand.get(1).rank == TEN
                 && hand.get(1).rank + 3 == hand.get(4).rank;
+    }
+
+    private boolean isOnePair() {
+        boolean hasOnePair = false;
+        for (int i = 0; i < hand.size() - 1; i++) {
+            if (hand.get(i).rank == hand.get(i + 1).rank) {
+                hasOnePair = true;
+            }
+        }
+        return hasOnePair;
     }
 }
