@@ -83,6 +83,8 @@ public class PokerGameValidationTest {
         addExtraCardIntoTheHandAndEvaulateHand(new Card(Suit.HEART, 4));
     }
 
+
+
     public void addExtraCardIntoTheHandAndEvaulateHand(Card card) {
         List<Card> list = new ArrayList<>(handWith4ValidCards);
         list.add(card);

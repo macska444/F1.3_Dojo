@@ -22,15 +22,14 @@ public class PokerGame {
         if (isFlush()) {
             return PokerHandScore.FLUSH;
         }
+        if(isStraight()){
+            return PokerHandScore.STRAIGHT;
+        }
         return null;
     }
 
     private void sortHand() {
         Collections.sort(hand);
-    }
-
-    private boolean isStraight() {
-        return hand.get(0).rank + 4 == hand.get(4).rank;
     }
 
     private boolean isFlush() {
@@ -42,5 +41,16 @@ public class PokerGame {
             }
         }
         return allSameSuit;
+    }
+
+    private boolean isStraight() {
+        return hand.get(0).rank + 4 == hand.get(4).rank
+                || isStraightWithAce();
+    }
+
+    private boolean isStraightWithAce() {
+        return hand.get(0).rank == 1
+                && hand.get(1).rank == 10
+                && hand.get(1).rank + 3 == hand.get(4).rank;
     }
 }

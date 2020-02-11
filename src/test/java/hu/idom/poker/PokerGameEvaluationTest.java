@@ -44,4 +44,34 @@ public class PokerGameEvaluationTest {
                 );
         assertEquals(PokerHandScore.STRAIGHTFLUSH, actualHandResult);
     }
+
+    @Test
+    public void straightWithAceTest(){
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.DIAMOND, 12),
+                        new Card(Suit.HEART, 10),
+                        new Card(Suit.HEART, 11),
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.HEART, 13)
+                )
+        );
+        assertEquals(PokerHandScore.STRAIGHT, actualHandResult);
+    }
+
+    @Test
+    public void straightWithLowAceTest(){
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.DIAMOND, 4),
+                        new Card(Suit.HEART, 3),
+                        new Card(Suit.HEART, 2),
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.HEART, 5)
+                )
+        );
+        assertEquals(PokerHandScore.STRAIGHT, actualHandResult);
+    }
 }
