@@ -66,11 +66,18 @@ public class PokerGame {
     }
 
     private boolean isStraight() {
-        return hand.get(0).rank + 4 == hand.get(4).rank
-                || isStraightWithAce();
+        return !isOnePair() && isRankDifferenceOk();
     }
 
-    private boolean isStraightWithAce() {
+    private boolean isRankDifferenceOk() {
+        return isRankDifferenceOkWithoutAce() || isRankDifferenceOkWithAce();
+    }
+
+    private boolean isRankDifferenceOkWithoutAce() {
+        return hand.get(0).rank + 4 == hand.get(4).rank;
+    }
+
+    private boolean isRankDifferenceOkWithAce() {
         return hand.get(0).rank == ACE
                 && hand.get(1).rank == TEN
                 && hand.get(1).rank + 3 == hand.get(4).rank;
