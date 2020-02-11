@@ -32,11 +32,15 @@ public class PokerGame {
         if (isStraight()) {
             return PokerHandScore.STRAIGHT;
         }
+        if (isDrill()) {
+            return PokerHandScore.DRILL;
+        }
         if (isOnePair()) {
             return PokerHandScore.ONEPAIR;
         }
         return null;
     }
+
 
     private void sortHand() {
         Collections.sort(hand);
@@ -83,13 +87,22 @@ public class PokerGame {
                 && hand.get(1).rank + 3 == hand.get(4).rank;
     }
 
+    private boolean isDrill() {
+        return hasNumberOfSameCards(3);
+    }
+
     private boolean isOnePair() {
-        boolean hasOnePair = false;
-        for (int i = 0; i < hand.size() - 1; i++) {
-            if (hand.get(i).rank == hand.get(i + 1).rank) {
-                hasOnePair = true;
+        return hasNumberOfSameCards(2);
+    }
+
+    private boolean hasNumberOfSameCards(int numberOfSameCard) {
+        boolean hasSameCard = false;
+        numberOfSameCard--;
+        for (int i = 0; i < hand.size() - numberOfSameCard; i++) {
+            if (hand.get(i).rank == hand.get(i + numberOfSameCard).rank) {
+                hasSameCard = true;
             }
         }
-        return hasOnePair;
+        return hasSameCard;
     }
 }

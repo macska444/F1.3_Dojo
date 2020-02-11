@@ -135,4 +135,34 @@ public class PokerGameEvaluationTest {
         );
         assertEquals(PokerHandScore.ONEPAIR, actualHandResult);
     }
+
+    @Test
+    public void drillTest(){
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 9),
+                        new Card(Suit.DIAMOND, 10),
+                        new Card(Suit.DIAMOND, 9),
+                        new Card(Suit.HEART, 11),
+                        new Card(Suit.SPADE, 9)
+                )
+        );
+        assertEquals(PokerHandScore.DRILL, actualHandResult);
+    }
+
+    @Test
+    public void drillTest2(){
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 9),
+                        new Card(Suit.DIAMOND, 12),
+                        new Card(Suit.DIAMOND, 9),
+                        new Card(Suit.HEART, 8),
+                        new Card(Suit.SPADE, 9)
+                )
+        );
+        assertEquals(PokerHandScore.DRILL, actualHandResult);
+    }
 }
