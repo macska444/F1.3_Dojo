@@ -3,6 +3,7 @@ package hu.idom.poker;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,14 +20,14 @@ public class PokerGameEvaluationTest {
     public void flushTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
-                        Arrays.asList(
-                                new Card(Suit.HEART, 2),
-                                new Card(Suit.HEART, 4),
-                                new Card(Suit.HEART, 6),
-                                new Card(Suit.HEART, 8),
-                                new Card(Suit.HEART, 10)
-                        )
-                );
+                Arrays.asList(
+                        new Card(Suit.HEART, 2),
+                        new Card(Suit.HEART, 4),
+                        new Card(Suit.HEART, 6),
+                        new Card(Suit.HEART, 8),
+                        new Card(Suit.HEART, 10)
+                )
+        );
         assertEquals(PokerHandScore.FLUSH, actualHandResult);
     }
 
@@ -34,19 +35,34 @@ public class PokerGameEvaluationTest {
     public void straightFlushTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
-                        Arrays.asList(
-                                new Card(Suit.HEART, 12),
-                                new Card(Suit.HEART, 10),
-                                new Card(Suit.HEART, 11),
-                                new Card(Suit.HEART, 9),
-                                new Card(Suit.HEART, 13)
-                        )
-                );
+                Arrays.asList(
+                        new Card(Suit.HEART, 12),
+                        new Card(Suit.HEART, 10),
+                        new Card(Suit.HEART, 11),
+                        new Card(Suit.HEART, 9),
+                        new Card(Suit.HEART, 13)
+                )
+        );
         assertEquals(PokerHandScore.STRAIGHTFLUSH, actualHandResult);
     }
 
     @Test
-    public void straightWithAceTest(){
+    public void straightFlushWithAceTest() {
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 5),
+                        new Card(Suit.HEART, 4),
+                        new Card(Suit.HEART, 3),
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.HEART, 2)
+                )
+        );
+        assertEquals(PokerHandScore.STRAIGHTFLUSH, actualHandResult);
+    }
+
+    @Test
+    public void straightWithAceTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -61,7 +77,7 @@ public class PokerGameEvaluationTest {
     }
 
     @Test
-    public void straightWithLowAceTest(){
+    public void straightWithLowAceTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -73,5 +89,20 @@ public class PokerGameEvaluationTest {
                 )
         );
         assertEquals(PokerHandScore.STRAIGHT, actualHandResult);
+    }
+
+    @Test
+    public void royalFlushTest() {
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 12),
+                        new Card(Suit.HEART, 10),
+                        new Card(Suit.HEART, 11),
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.HEART, 13)
+                )
+        );
+        assertEquals(PokerHandScore.ROYALFLUSH, actualHandResult);
     }
 }

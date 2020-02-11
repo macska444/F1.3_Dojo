@@ -5,6 +5,10 @@ import java.util.Collections;
 
 public class PokerGame {
 
+    private static final int ACE = 1;
+    private static final int TEN = 10;
+    private static final int KING = 13;
+
     private List<Card> hand;
 
     public PokerHandScore evaluateHand(List<Card> hand) {
@@ -16,13 +20,16 @@ public class PokerGame {
 
     private PokerHandScore calculateHandScore() {
         sortHand();
-        if (isFlush() && isStraight()) {
+        if (isRoyalFlush()) {
+            return PokerHandScore.ROYALFLUSH;
+        }
+        if (isStraightFlush()) {
             return PokerHandScore.STRAIGHTFLUSH;
         }
         if (isFlush()) {
             return PokerHandScore.FLUSH;
         }
-        if(isStraight()){
+        if (isStraight()) {
             return PokerHandScore.STRAIGHT;
         }
         return null;
@@ -30,6 +37,18 @@ public class PokerGame {
 
     private void sortHand() {
         Collections.sort(hand);
+    }
+
+    private boolean isRoyalFlush() {
+        return isRoyal() && isStraightFlush();
+    }
+
+    private boolean isRoyal() {
+        return hand.get(4).rank == KING && hand.get(0).rank == ACE;
+    }
+
+    private boolean isStraightFlush() {
+        return isFlush() && isStraight();
     }
 
     private boolean isFlush() {
@@ -49,8 +68,8 @@ public class PokerGame {
     }
 
     private boolean isStraightWithAce() {
-        return hand.get(0).rank == 1
-                && hand.get(1).rank == 10
+        return hand.get(0).rank == ACE
+                && hand.get(1).rank == TEN
                 && hand.get(1).rank + 3 == hand.get(4).rank;
     }
 }

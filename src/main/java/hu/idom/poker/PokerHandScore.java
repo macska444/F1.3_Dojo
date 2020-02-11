@@ -1,5 +1,5 @@
 package hu.idom.poker;
 
 public enum PokerHandScore {
-    FLUSH, STRAIGHT, STRAIGHTFLUSH
+    FLUSH, STRAIGHT, ROYALFLUSH, STRAIGHTFLUSH
 }
