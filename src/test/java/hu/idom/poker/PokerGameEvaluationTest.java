@@ -5,6 +5,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class PokerGameEvaluationTest {
@@ -107,7 +108,7 @@ public class PokerGameEvaluationTest {
     }
 
     @Test
-    public void onePairTest(){
+    public void onePairTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -122,7 +123,7 @@ public class PokerGameEvaluationTest {
     }
 
     @Test
-    public void onePairTest2(){
+    public void onePairTest2() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -137,7 +138,7 @@ public class PokerGameEvaluationTest {
     }
 
     @Test
-    public void drillTest(){
+    public void threeOfAKindTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -152,7 +153,7 @@ public class PokerGameEvaluationTest {
     }
 
     @Test
-    public void drillTest2(){
+    public void threeOfAKindTest2() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -167,7 +168,7 @@ public class PokerGameEvaluationTest {
     }
 
     @Test
-    public void fourOfAKindTest(){
+    public void fourOfAKindTest() {
         PokerHandScore actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
@@ -181,4 +182,18 @@ public class PokerGameEvaluationTest {
         assertEquals(PokerHandScore.FOUROFAKIND, actualHandResult);
     }
 
+    @Test
+    public void fullHouseTest() {
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.SPADE, 1),
+                        new Card(Suit.DIAMOND, 1),
+                        new Card(Suit.CLUB, 2),
+                        new Card(Suit.SPADE, 2)
+                )
+        );
+        assertEquals(PokerHandScore.FULLHOUSE, actualHandResult);
+    }
 }

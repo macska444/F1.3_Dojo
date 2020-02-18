@@ -10,6 +10,7 @@ public class PokerGame {
     private static final int KING = 13;
 
     private List<Card> hand;
+    private int[] sameCards;
 
     public PokerHandScore evaluateHand(List<Card> hand) {
         PokerHandValidator phv = new PokerHandValidator();
@@ -19,7 +20,7 @@ public class PokerGame {
     }
 
     private PokerHandScore calculateHandScore() {
-        sortHand();
+        prepareHand();
         if (isRoyalFlush()) {
             return PokerHandScore.ROYALFLUSH;
         }
@@ -29,13 +30,16 @@ public class PokerGame {
         if (isFourOfAKind()) {
             return PokerHandScore.FOUROFAKIND;
         }
+        if (isFullHouse()) {
+            return PokerHandScore.FULLHOUSE;
+        }
         if (isFlush()) {
             return PokerHandScore.FLUSH;
         }
         if (isStraight()) {
             return PokerHandScore.STRAIGHT;
         }
-        if (isDrill()) {
+        if (isThreeOfAKind()) {
             return PokerHandScore.THREEOFAKIND;
         }
         if (isOnePair()) {
@@ -44,8 +48,20 @@ public class PokerGame {
         return null;
     }
 
+    private void prepareHand() {
+        sortHand();
+        countOfCardsRank();
+    }
+
     private void sortHand() {
         Collections.sort(hand);
+    }
+
+    private void countOfCardsRank() {
+        sameCards = new int[15];
+        for (int i = 0; i < hand.size(); i++) {
+            sameCards[hand.get(i).rank]++;
+        }
     }
 
     private boolean isRoyalFlush() {
@@ -64,6 +80,10 @@ public class PokerGame {
         return hasNumberOfSameCards(4);
     }
 
+    private boolean isFullHouse() {
+        return hasNumberOfSameCards(3) && hasNumberOfSameCards(2);
+    }
+
     private boolean isFlush() {
         Suit suitOfFirstCard = hand.get(0).suit;
         boolean allSameSuit = true;
@@ -76,7 +96,7 @@ public class PokerGame {
     }
 
     private boolean isStraight() {
-        return !isOnePair() && isRankDifferenceOk();
+        return !isOnePair() && !isThreeOfAKind() && !isFourOfAKind() && isRankDifferenceOk();
     }
 
     private boolean isRankDifferenceOk() {
@@ -93,7 +113,7 @@ public class PokerGame {
                 && hand.get(1).rank + 3 == hand.get(4).rank;
     }
 
-    private boolean isDrill() {
+    private boolean isThreeOfAKind() {
         return hasNumberOfSameCards(3);
     }
 
@@ -102,13 +122,12 @@ public class PokerGame {
     }
 
     private boolean hasNumberOfSameCards(int numberOfSameCard) {
-        boolean hasSameCard = false;
-        numberOfSameCard--;
-        for (int i = 0; i < hand.size() - numberOfSameCard; i++) {
-            if (hand.get(i).rank == hand.get(i + numberOfSameCard).rank) {
-                hasSameCard = true;
+        boolean hasSameCards = false;
+        for (int i = 0; i < sameCards.length; i++) {
+            if (sameCards[i] == numberOfSameCard) {
+                hasSameCards = true;
             }
         }
-        return hasSameCard;
+        return hasSameCards;
     }
 }
