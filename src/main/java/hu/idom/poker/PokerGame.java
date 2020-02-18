@@ -42,6 +42,9 @@ public class PokerGame {
         if (isThreeOfAKind()) {
             return PokerHandScore.THREEOFAKIND;
         }
+        if (isTwoPair()) {
+            return PokerHandScore.TWOPAIR;
+        }
         if (isOnePair()) {
             return PokerHandScore.ONEPAIR;
         }
@@ -115,6 +118,16 @@ public class PokerGame {
 
     private boolean isThreeOfAKind() {
         return hasNumberOfSameCards(3);
+    }
+
+    private boolean isTwoPair() {
+        int pairCount = 0;
+        for (int i = 0; i < sameCards.length; i++) {
+            if (sameCards[i] == 2) {
+                pairCount++;
+            }
+        }
+        return pairCount == 2;
     }
 
     private boolean isOnePair() {
