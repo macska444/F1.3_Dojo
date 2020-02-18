@@ -5,7 +5,6 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PokerGameEvaluationTest {
@@ -44,7 +43,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.STRAIGHTFLUSH, actualHandResult);
+        assertEquals(PokerHandScore.STRAIGHT_FLUSH, actualHandResult);
     }
 
     @Test
@@ -59,7 +58,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 2)
                 )
         );
-        assertEquals(PokerHandScore.STRAIGHTFLUSH, actualHandResult);
+        assertEquals(PokerHandScore.STRAIGHT_FLUSH, actualHandResult);
     }
 
     @Test
@@ -104,7 +103,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.ROYALFLUSH, actualHandResult);
+        assertEquals(PokerHandScore.ROYAL_FLUSH, actualHandResult);
     }
 
     @Test
@@ -119,7 +118,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 4)
                 )
         );
-        assertEquals(PokerHandScore.ONEPAIR, actualHandResult);
+        assertEquals(PokerHandScore.ONE_PAIR, actualHandResult);
     }
 
     @Test
@@ -134,7 +133,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.ONEPAIR, actualHandResult);
+        assertEquals(PokerHandScore.ONE_PAIR, actualHandResult);
     }
 
     @Test
@@ -149,7 +148,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 9)
                 )
         );
-        assertEquals(PokerHandScore.THREEOFAKIND, actualHandResult);
+        assertEquals(PokerHandScore.THREE_OF_A_KIND, actualHandResult);
     }
 
     @Test
@@ -164,7 +163,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 9)
                 )
         );
-        assertEquals(PokerHandScore.THREEOFAKIND, actualHandResult);
+        assertEquals(PokerHandScore.THREE_OF_A_KIND, actualHandResult);
     }
 
     @Test
@@ -179,7 +178,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 1)
                 )
         );
-        assertEquals(PokerHandScore.FOUROFAKIND, actualHandResult);
+        assertEquals(PokerHandScore.FOUR_OF_A_KIND, actualHandResult);
     }
 
     @Test
@@ -194,7 +193,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 2)
                 )
         );
-        assertEquals(PokerHandScore.FULLHOUSE, actualHandResult);
+        assertEquals(PokerHandScore.FULL_HOUSE, actualHandResult);
     }
 
     @Test
@@ -209,6 +208,21 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 2)
                 )
         );
-        assertEquals(PokerHandScore.TWOPAIR, actualHandResult);
+        assertEquals(PokerHandScore.TWO_PAIR, actualHandResult);
+    }
+
+    @Test
+    public void highCardTest() {
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.SPADE, 3),
+                        new Card(Suit.DIAMOND, 8),
+                        new Card(Suit.CLUB, 4),
+                        new Card(Suit.SPADE, 2)
+                )
+        );
+        assertEquals(PokerHandScore.HIGH_CARD, actualHandResult);
     }
 }

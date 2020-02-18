@@ -6,8 +6,8 @@ import java.util.Collections;
 public class PokerGame {
 
     private static final int ACE = 1;
-    private static final int TEN = 10;
     private static final int KING = 13;
+    private static final int HIGHEST_STRAIGHTS_LOWEST_RANK = 10;
 
     private List<Card> hand;
     private int[] sameCards;
@@ -22,16 +22,16 @@ public class PokerGame {
     private PokerHandScore calculateHandScore() {
         prepareHand();
         if (isRoyalFlush()) {
-            return PokerHandScore.ROYALFLUSH;
+            return PokerHandScore.ROYAL_FLUSH;
         }
         if (isStraightFlush()) {
-            return PokerHandScore.STRAIGHTFLUSH;
+            return PokerHandScore.STRAIGHT_FLUSH;
         }
         if (isFourOfAKind()) {
-            return PokerHandScore.FOUROFAKIND;
+            return PokerHandScore.FOUR_OF_A_KIND;
         }
         if (isFullHouse()) {
-            return PokerHandScore.FULLHOUSE;
+            return PokerHandScore.FULL_HOUSE;
         }
         if (isFlush()) {
             return PokerHandScore.FLUSH;
@@ -40,15 +40,15 @@ public class PokerGame {
             return PokerHandScore.STRAIGHT;
         }
         if (isThreeOfAKind()) {
-            return PokerHandScore.THREEOFAKIND;
+            return PokerHandScore.THREE_OF_A_KIND;
         }
         if (isTwoPair()) {
-            return PokerHandScore.TWOPAIR;
+            return PokerHandScore.TWO_PAIR;
         }
         if (isOnePair()) {
-            return PokerHandScore.ONEPAIR;
+            return PokerHandScore.ONE_PAIR;
         }
-        return null;
+        return PokerHandScore.HIGH_CARD;
     }
 
     private void prepareHand() {
@@ -112,7 +112,7 @@ public class PokerGame {
 
     private boolean isRankDifferenceOkWithAce() {
         return hand.get(0).rank == ACE
-                && hand.get(1).rank == TEN
+                && hand.get(1).rank == HIGHEST_STRAIGHTS_LOWEST_RANK
                 && hand.get(1).rank + 3 == hand.get(4).rank;
     }
 
