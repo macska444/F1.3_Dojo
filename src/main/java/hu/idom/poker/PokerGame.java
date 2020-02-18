@@ -26,6 +26,9 @@ public class PokerGame {
         if (isStraightFlush()) {
             return PokerHandScore.STRAIGHTFLUSH;
         }
+        if (isFourOfAKind()) {
+            return PokerHandScore.FOUROFAKIND;
+        }
         if (isFlush()) {
             return PokerHandScore.FLUSH;
         }
@@ -33,14 +36,13 @@ public class PokerGame {
             return PokerHandScore.STRAIGHT;
         }
         if (isDrill()) {
-            return PokerHandScore.DRILL;
+            return PokerHandScore.THREEOFAKIND;
         }
         if (isOnePair()) {
             return PokerHandScore.ONEPAIR;
         }
         return null;
     }
-
 
     private void sortHand() {
         Collections.sort(hand);
@@ -56,6 +58,10 @@ public class PokerGame {
 
     private boolean isStraightFlush() {
         return isFlush() && isStraight();
+    }
+
+    private boolean isFourOfAKind() {
+        return hasNumberOfSameCards(4);
     }
 
     private boolean isFlush() {

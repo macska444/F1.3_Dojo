@@ -148,7 +148,7 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 9)
                 )
         );
-        assertEquals(PokerHandScore.DRILL, actualHandResult);
+        assertEquals(PokerHandScore.THREEOFAKIND, actualHandResult);
     }
 
     @Test
@@ -163,6 +163,22 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 9)
                 )
         );
-        assertEquals(PokerHandScore.DRILL, actualHandResult);
+        assertEquals(PokerHandScore.THREEOFAKIND, actualHandResult);
     }
+
+    @Test
+    public void fourOfAKindTest(){
+        PokerHandScore actualHandResult
+                = pokerGame.evaluateHand(
+                Arrays.asList(
+                        new Card(Suit.HEART, 1),
+                        new Card(Suit.DIAMOND, 1),
+                        new Card(Suit.DIAMOND, 9),
+                        new Card(Suit.CLUB, 1),
+                        new Card(Suit.SPADE, 1)
+                )
+        );
+        assertEquals(PokerHandScore.FOUROFAKIND, actualHandResult);
+    }
+
 }
