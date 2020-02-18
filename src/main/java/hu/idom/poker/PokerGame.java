@@ -12,11 +12,11 @@ public class PokerGame {
     private List<Card> hand;
     private int[] sameCards;
 
-    public PokerHandScore evaluateHand(List<Card> hand) {
+    public PokerHandResult evaluateHand(List<Card> hand) {
         PokerHandValidator phv = new PokerHandValidator();
         phv.validateHand(hand);
         this.hand = hand;
-        return calculateHandScore();
+        return new PokerHandResult(calculateHandScore());
     }
 
     private PokerHandScore calculateHandScore() {

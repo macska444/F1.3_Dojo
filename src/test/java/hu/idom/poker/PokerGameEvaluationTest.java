@@ -18,7 +18,7 @@ public class PokerGameEvaluationTest {
 
     @Test
     public void flushTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 2),
@@ -28,12 +28,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 10)
                 )
         );
-        assertEquals(PokerHandScore.FLUSH, actualHandResult);
+        assertEquals(PokerHandScore.FLUSH, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void straightFlushTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 12),
@@ -43,12 +43,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.STRAIGHT_FLUSH, actualHandResult);
+        assertEquals(PokerHandScore.STRAIGHT_FLUSH, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void straightFlushWithAceTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 5),
@@ -58,12 +58,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 2)
                 )
         );
-        assertEquals(PokerHandScore.STRAIGHT_FLUSH, actualHandResult);
+        assertEquals(PokerHandScore.STRAIGHT_FLUSH, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void straightWithAceTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.DIAMOND, 12),
@@ -73,12 +73,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.STRAIGHT, actualHandResult);
+        assertEquals(PokerHandScore.STRAIGHT, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void straightWithLowAceTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.DIAMOND, 4),
@@ -88,12 +88,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 5)
                 )
         );
-        assertEquals(PokerHandScore.STRAIGHT, actualHandResult);
+        assertEquals(PokerHandScore.STRAIGHT, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void royalFlushTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 12),
@@ -103,12 +103,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.ROYAL_FLUSH, actualHandResult);
+        assertEquals(PokerHandScore.ROYAL_FLUSH, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void onePairTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 10),
@@ -118,12 +118,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 4)
                 )
         );
-        assertEquals(PokerHandScore.ONE_PAIR, actualHandResult);
+        assertEquals(PokerHandScore.ONE_PAIR, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void onePairTest2() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 9),
@@ -133,12 +133,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.HEART, 13)
                 )
         );
-        assertEquals(PokerHandScore.ONE_PAIR, actualHandResult);
+        assertEquals(PokerHandScore.ONE_PAIR, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void threeOfAKindTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 9),
@@ -148,12 +148,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 9)
                 )
         );
-        assertEquals(PokerHandScore.THREE_OF_A_KIND, actualHandResult);
+        assertEquals(PokerHandScore.THREE_OF_A_KIND, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void threeOfAKindTest2() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 9),
@@ -163,12 +163,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 9)
                 )
         );
-        assertEquals(PokerHandScore.THREE_OF_A_KIND, actualHandResult);
+        assertEquals(PokerHandScore.THREE_OF_A_KIND, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void fourOfAKindTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 1),
@@ -178,12 +178,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 1)
                 )
         );
-        assertEquals(PokerHandScore.FOUR_OF_A_KIND, actualHandResult);
+        assertEquals(PokerHandScore.FOUR_OF_A_KIND, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void fullHouseTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 1),
@@ -193,12 +193,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 2)
                 )
         );
-        assertEquals(PokerHandScore.FULL_HOUSE, actualHandResult);
+        assertEquals(PokerHandScore.FULL_HOUSE, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void twoPairTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 1),
@@ -208,12 +208,12 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 2)
                 )
         );
-        assertEquals(PokerHandScore.TWO_PAIR, actualHandResult);
+        assertEquals(PokerHandScore.TWO_PAIR, actualHandResult.pokerHandScore);
     }
 
     @Test
     public void highCardTest() {
-        PokerHandScore actualHandResult
+        PokerHandResult actualHandResult
                 = pokerGame.evaluateHand(
                 Arrays.asList(
                         new Card(Suit.HEART, 1),
@@ -223,6 +223,6 @@ public class PokerGameEvaluationTest {
                         new Card(Suit.SPADE, 2)
                 )
         );
-        assertEquals(PokerHandScore.HIGH_CARD, actualHandResult);
+        assertEquals(PokerHandScore.HIGH_CARD, actualHandResult.pokerHandScore);
     }
 }
